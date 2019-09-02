@@ -5,13 +5,18 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 public class Home extends CommonAPI {
-    @FindBy(xpath = "//*[@id=\'container\']//div/ul/li[1]/a")
+    @FindBy(xpath = "//*[@id=\"container\"]/div[1]/div[2]/div/div[2]/div[1]/div/div[1]/a")
+    public static WebElement homedepLogo;
+
+    @FindBy(css = "a[class='TaskLinks__link']")
     public static WebElement findMystore;
 
     @FindBy(css = "#headerSearch")
@@ -20,13 +25,13 @@ public class Home extends CommonAPI {
     @FindBy(xpath = "//*[@id='headerSearchButton']")
     public static WebElement searchButton;
 
-    @FindBy(xpath = "//*[@id=\'headerCart\']/div[1]/span[1]")
+    @FindBy(xpath = "//*[@id=\"headerCart\"]/div[1]/span[1]")
     public static WebElement cart;
 
-    @FindBy(xpath = "//*[@id=\'container\']//div/ul/li[2]/a")
+    @FindBy(xpath = "//*[@id=\"container\"]//div/ul/li[2]/a")
     public static WebElement trackNToolRental;
 
-    @FindBy(xpath = "//*[@id=\"container\"]//div[2]/div/div[1]/div/ul/li[4]/a")
+    @FindBy(css = " a[class='TaskLinks__link']")
     public static WebElement giftCards;
 
     @FindBy(xpath = "//*[@id=\"container\"]//div[1]/div/ul/li[8]/a")
@@ -47,10 +52,10 @@ public class Home extends CommonAPI {
     @FindBy(css = "#myStore span.MyStore__label > div")
     public static WebElement chooseStore;
 
-    @FindBy(xpath = "//*[@id=\"headerMyAccountTitle\"]/div")
+    @FindBy(css = "#headerMyAccountTitle > div")
     public static WebElement accountButton;
 
-    @FindBy(css = "#authSignIn span")
+    @FindBy(css="#authSignIn span")
     public static WebElement signInButton;
 
     @FindBy(css = "#authRegister > a > span")
@@ -60,9 +65,6 @@ public class Home extends CommonAPI {
     @FindBy(xpath = "//*[@id=\"container\"]//div[4]/div/ul/li[1]")
     public static WebElement departments;
 
-    @FindBy(css = "#container > div .grid > div> div > :nth-child(1) > a > svg > g > :nth-child(4)")
-    public static WebElement homedepLogo;
-
 
     public String pageTitle() throws InterruptedException {
         String title = driver.getTitle();
@@ -70,8 +72,8 @@ public class Home extends CommonAPI {
 
     }
 
-    public String isLogoVisible() {
-        String logo = homedepLogo.getText();
+    public String isLogoVisible(){
+        String logo=homedepLogo.getText();
         return logo;
     }
 
@@ -143,12 +145,11 @@ public class Home extends CommonAPI {
         return url;
     }
 
-    public void clickAccount() throws InterruptedException {
-        sleepFor(10);
+    public static void clickAccount() {
         accountButton.click();
     }
 
-    public void navigateTosignIn() {
+    public  void navigateTosignIn() {
         accountButton.click();
         for (String handle : driver.getWindowHandles()) {
             driver.switchTo().window(handle);
@@ -158,12 +159,12 @@ public class Home extends CommonAPI {
 
     }
 
-    public void clickRegister() {
+    public  void clickRegister() {
         accountButton.click();
         for (String handle : driver.getWindowHandles()) {
             driver.switchTo().window(handle);
-        }
-        new WebDriverWait(driver, 50).until(ExpectedConditions.elementToBeClickable(registerButton));
+            }
+            new WebDriverWait(driver, 50).until(ExpectedConditions.elementToBeClickable(registerButton));
         registerButton.click();
     }
 }

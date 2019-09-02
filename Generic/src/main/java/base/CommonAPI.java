@@ -5,8 +5,8 @@ import com.relevantcodes.extentreports.LogStatus;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -33,6 +33,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import org.openqa.selenium.Keys;
+
 
 public class CommonAPI {
     //ExtentReport
@@ -93,23 +95,23 @@ public class CommonAPI {
         calendar.setTimeInMillis(millis);
         return calendar.getTime();
     }
-
     public WebDriver driver = null;
-    public String browserstack_username = "mehzabinakhter1";
+    public String browserstack_username= "mehzabinakhter1";
     public String browserstack_accesskey = "7qi3C8RRe2vfQpD4xuCM";
     public String saucelabs_username;
     public String saucelabs_accesskey;
 
+
     @Parameters({"useCloudEnv", "cloudEnvName", "os", "os_version", "browserName", "browserVersion", "url"})
     @BeforeMethod
-    public void setUp(@Optional("false") boolean useCloudEnv, @Optional("false") String cloudEnvName,
-                      @Optional("OS X") String os, @Optional("10") String os_version, @Optional("firefox") String browserName, @Optional("34")
-                              String browserVersion, @Optional("http://www.amazon.com") String url) throws IOException {
-        if (useCloudEnv == true) {
-            if (cloudEnvName.equalsIgnoreCase("browserstack")) {
-                getCloudDriver(cloudEnvName, browserstack_username, browserstack_accesskey, os, os_version, browserName, browserVersion);
-            } else if (cloudEnvName.equalsIgnoreCase("saucelabs")) {
-                getCloudDriver(cloudEnvName, saucelabs_username, saucelabs_accesskey, os, os_version, browserName, browserVersion);
+    public void setUp(@Optional("false") boolean useCloudEnv, @Optional("false")String cloudEnvName,
+                      @Optional("OS X") String os,@Optional("10") String os_version, @Optional("firefox") String browserName, @Optional("34")
+                              String browserVersion, @Optional("http://www.amazon.com") String url)throws IOException {
+        if(useCloudEnv==true){
+            if(cloudEnvName.equalsIgnoreCase("browserstack")) {
+                getCloudDriver(cloudEnvName,browserstack_username,browserstack_accesskey,os,os_version, browserName, browserVersion);
+            }else if (cloudEnvName.equalsIgnoreCase("saucelabs")){
+                getCloudDriver(cloudEnvName,saucelabs_username, saucelabs_accesskey,os,os_version, browserName, browserVersion);
             }
         } else {
             getLocalDriver(os, browserName);
@@ -136,8 +138,7 @@ public class CommonAPI {
             }
             driver = new FirefoxDriver();
 
-        } else if (browserName.equalsIgnoreCase("ie")) {
-
+        } else if(browserName.equalsIgnoreCase("ie")) {
             System.setProperty("webdriver.ie.driver", "../Generic/browser-driver/IEDriverServer.exe");
             driver = new InternetExplorerDriver();
         }
@@ -152,9 +153,9 @@ public class CommonAPI {
         cap.setCapability("browser_version", browserVersion);
         cap.setCapability("os", os);
         cap.setCapability("os_version", os_version);
-        if (envName.equalsIgnoreCase("Saucelabs")) {
+        if(envName.equalsIgnoreCase("Saucelabs")){
             //resolution for Saucelabs
-            driver = new RemoteWebDriver(new URL("http://" + envUsername + ":" + envAccessKey +
+            driver = new RemoteWebDriver(new URL("http://"+envUsername+":"+envAccessKey+
                     "@ondemand.saucelabs.com:80/wd/hub"), cap);
         } else if (envName.equalsIgnoreCase("Browserstack")) {
             cap.setCapability("resolution", "1024x768");
@@ -163,9 +164,8 @@ public class CommonAPI {
         }
         return driver;
     }
-
     @AfterMethod
-    public void cleanUp() {
+    public void cleanUp(){
         driver.quit();
     }
 
@@ -208,11 +208,11 @@ public class CommonAPI {
         List<String> text = new ArrayList<String>();
         try {
             element = driver.findElements(By.cssSelector(locator));
-        } catch (Exception ex) {
+        }catch(Exception ex){
             ex.printStackTrace();
             element = driver.findElements(By.xpath(locator));
         }
-        for (WebElement web : element) {
+        for(WebElement web:element){
             text.add(web.getText());
         }
 
@@ -353,7 +353,6 @@ public class CommonAPI {
             System.out.println("Screenshot captured");
         } catch (Exception e) {
             System.out.println("Exception while taking screenshot " + e.getMessage());
-            ;
         }
     }
 
@@ -393,11 +392,11 @@ public class CommonAPI {
     public void keysInput(String locator) {
         driver.findElement(By.cssSelector(locator)).sendKeys(Keys.ENTER);
     }
-
-    public String convertToString(String st) {
-        String splitString;
+    public String convertToString(String st){
+        String splitString ;
         splitString = StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(st), ' ');
         return splitString;
     }
+
 }
 

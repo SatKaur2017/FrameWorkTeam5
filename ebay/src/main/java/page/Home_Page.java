@@ -6,9 +6,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
-
-import javax.swing.*;
-import java.awt.event.ActionEvent;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -150,8 +147,13 @@ public class Home_Page extends CommonAPI {
         sleepFor(2);
         String title = driver.getTitle();
         return title;
+   }
+    public void ClickFashionbutton(){
+        Actions fashion = new Actions(driver);
+        fashion.moveToElement(FashionButton).build().perform();
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        System.out.println("The title of Luxury hand Bags is :" + driver.getTitle());
     }
-
     public void ClickCrossTrainImage() throws InterruptedException {
         crossTrainImage.click();
         sleepFor(2);

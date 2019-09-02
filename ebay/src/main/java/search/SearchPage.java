@@ -23,21 +23,16 @@ public class SearchPage extends CommonAPI {
         return submitButtonWebElement;
     }
 
-    public void searchFor(String value) {
-        TestLogger.log(getClass().getSimpleName() + ": " + convertToString(new Object() {
-        }.getClass().getEnclosingMethod().getName()) + " " + value);
+    public void searchFor(String value){
+        TestLogger.log(getClass().getSimpleName() + ": " + convertToString(new Object(){}.getClass().getEnclosingMethod().getName())+" "+ value);
         getSearchInputWebElement().sendKeys(value);
     }
-
-    public void submitSearchButton() {
-        TestLogger.log(getClass().getSimpleName() + ": " + convertToString(new Object() {
-        }.getClass().getEnclosingMethod().getName()));
+    public void submitSearchButton(){
+        TestLogger.log(getClass().getSimpleName() + ": " + convertToString(new Object(){}.getClass().getEnclosingMethod().getName()));
         getSubmitButtonWebElement().click();
     }
-
-    public void clearInput() {
-        TestLogger.log(getClass().getSimpleName() + ": " + convertToString(new Object() {
-        }.getClass().getEnclosingMethod().getName()));
+    public void clearInput(){
+        TestLogger.log(getClass().getSimpleName() + ": " + convertToString(new Object(){}.getClass().getEnclosingMethod().getName()));
         getSearchInputWebElement().clear();
     }
 

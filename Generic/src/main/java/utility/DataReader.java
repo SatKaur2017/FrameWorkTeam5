@@ -19,6 +19,7 @@ public class DataReader {
     Cell cell = null;
     FileOutputStream fio = null;
     int numberOfRows, numberOfCol, rowNum;
+
     public String[][] fileReader1(String path)throws IOException {
         String [] [] data = {};
         File file = new File(path);
@@ -48,7 +49,6 @@ public class DataReader {
         numberOfRows = sheet.getLastRowNum();
         numberOfCol =  sheet.getRow(0).getLastCellNum();
         data = new String[numberOfRows+1];
-
         for(int i=1; i<data.length; i++){
             HSSFRow rows = sheet.getRow(i);
             for(int j=0; j<numberOfCol; j++){
@@ -57,7 +57,7 @@ public class DataReader {
                 data[i] = cellData;
             }
         }
-        return  data;
+        return data;
     }
 
     public String[] colReader(String path, int col) throws IOException {

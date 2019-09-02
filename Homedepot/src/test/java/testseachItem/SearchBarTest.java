@@ -8,6 +8,6 @@ public class SearchBarTest extends Home {
     @Test
     public void testHome() throws InterruptedException{
         searchBox();
-        sleepFor(1);
+        sleepFor(30);
     }
 }
